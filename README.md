@@ -1,1 +1,36 @@
-Booksy SPA es una app móvil de gestión bibliotecaria pensada para un uso simple y agradable: permite explorar un catálogo por categorías, buscar títulos, ver fichas con autor, sinopsis y disponibilidad, y realizar solicitudes y devoluciones de préstamo simuladas que quedan visibles en el historial del usuario. El proyecto se centra en el alcance del EP3: diseño y experiencia de usuario en móviles, formularios con validaciones claras (por ejemplo, para registro e inicio de sesión), navegación consistente con manejo correcto del backstack, gestión de estado con indicadores de carga, éxito y error, persistencia local para un CRUD básico (favoritos y/o préstamos) y almacenamiento de un avatar, uso de recursos nativos como cámara o galería con permisos y fallback, animaciones con propósito para reforzar acciones clave y consumo de API para autenticación, incluyendo la consulta del perfil con “/auth/me”. Para ejecutar el proyecto basta con clonar el repositorio, abrirlo en Android Studio, sincronizar Gradle y correrlo en un emulador o dispositivo físico; si corresponde, se configura la Base URL del backend en variables locales. A nivel de diseño interno se mantiene una separación de responsabilidades entre interfaz, lógica de presentación y acceso a datos, sin detallar arquitectura MVVM completa ni estructura de carpetas ni implementaciones concretas de Retrofit o Repository, tal como exige la pauta académica; del mismo modo, no se incluye código de validaciones, gráficos de navegación, DAOs de Room, servicios de API ni componentes Compose: el estudiante debe implementarlos. El flujo típico comienza con registro o login, guarda el token y redirige al catálogo; desde ahí el usuario explora, abre un detalle y solicita un préstamo, y puede gestionar su perfil cambiando nombre y foto con cámara o galería. La app contempla escenarios offline mostrando el último catálogo disponible y comunica errores de red con mensajes de reintento.
+# Booksy SPA – App Android
+
+App Android en Kotlin con Jetpack Compose, hecha para la asignatura Desarrollo de Aplicaciones Móviles de Duoc UC (2025). Proyecto en dupla de Agustín González y Benjamin Araya.
+
+## Qué hace
+
+- Login y registro con validaciones contra la API de prueba [DummyJSON](https://dummyjson.com).
+- Guarda la sesión (token) con DataStore y la envía en cada petición con un interceptor de OkHttp.
+- Perfil de usuario con foto desde cámara o galería.
+- Navegación que se adapta a teléfono y tablet (Window Size Classes).
+
+## Tecnologías
+
+Kotlin · Jetpack Compose · Material 3 · Navigation Compose · ViewModel · Retrofit · OkHttp · Coroutines · DataStore · Coil
+
+## Estructura
+
+```
+app/src/main/java/com/booksy/booksyspa/
+├── data/
+│   ├── local/        # SessionManager (DataStore)
+│   └── remote/       # ApiService, RetrofitClient, AuthInterceptor y DTOs
+├── repository/       # UserRepository, AvatarRepository
+└── ui/
+    ├── auth/         # Login y registro (pantallas + ViewModels)
+    ├── profile/      # Perfil (pantalla + ViewModel)
+    ├── screens/      # Inicio y navegación
+    ├── components/   # Selector de imagen
+    └── theme/        # Colores, tipografía y tema
+```
+
+## Cómo ejecutarlo
+
+1. Clona el repositorio y ábrelo en Android Studio.
+2. Sincroniza Gradle.
+3. Ejecútalo en un emulador o teléfono con Android 7.0 (API 24) o superior.
